@@ -1,6 +1,10 @@
 package vtn.hello.spring.hibernate.controller.service;
 
 import java.util.List;
+
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Root;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +28,11 @@ public class PersonService {
     }
 
     public List<Person> getAllPerson() {
-        return getCurrentSession().createCriteria(Person.class).list();
+        CriteriaBuilder cb = getCurrentSession().getCriteriaBuilder();
+        CriteriaQuery<Person> cq = cb.createQuery(Person.class);
+        Root<Person> rootEntry = cq.from(Person.class);
+        CriteriaQuery<Person> all = cq.select(rootEntry);
+        return getCurrentSession().createQuery(all).list();
     }
 
     public Person getPersonById(int id) {

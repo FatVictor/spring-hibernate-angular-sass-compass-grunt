@@ -27,9 +27,9 @@
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
-		
+
     <servlet-mapping>
         <servlet-name>hello-app</servlet-name>
-        <url-pattern>*.json</url-pattern>
+        <url-pattern>/api/*</url-pattern>
     </servlet-mapping>
 </web-app>
